@@ -265,7 +265,12 @@ export default function Tasks() {
 
             <div className="aspect-video w-full relative">
               {selectedTask.thumbnail ? (
-                <img src={selectedTask.thumbnail} alt="" className="w-full h-full object-cover" />
+                <img 
+                  src={selectedTask.thumbnail || '/default-thumbnail.png'}
+                  alt=""
+                  className="w-full h-full object-cover"
+                  onError={e => { e.currentTarget.src = '/default-thumbnail.png'; }}
+                />
               ) : (
                 <div className="w-full h-full bg-surface-container-highest flex items-center justify-center">
                   <span className="material-symbols-outlined text-6xl text-outline opacity-20">movie</span>
