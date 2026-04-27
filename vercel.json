@@ -4,9 +4,7 @@
   "buildCommand": "npm --prefix app_build run build",
   "outputDirectory": "app_build/dist",
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/manifest.json", "destination": "/manifest.json" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
