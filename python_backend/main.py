@@ -1,10 +1,25 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 import instaloader
 import re
 from datetime import datetime, timedelta
 
 app = FastAPI()
+
+
+@app.get("/")
+def root():
+    return {
+        "status": "ok",
+        "message": "Backend is running",
+        "docs": "/docs",
+        "extract": "/extract?url=https://www.instagram.com/reel/SHORTCODE/"
+    }
+
+
+@app.get("/favicon.ico")
+def favicon():
+    return Response(status_code=204)
 
 
 # Allow CORS so the Vite React app can talk to this backend
