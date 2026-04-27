@@ -1,0 +1,21 @@
+# Dependency folders
+node_modules/
+app_build/node_modules/
+
+# Build output
+dist/
+app_build/dist/
+
+# Environment files
+.env
+app_build/.env
+
+# Editor / local config
+.vscode/
+app_build/.vscode/
+.claude/
+app_build/.claude/
+
+# Git metadata from nested repos
+app_build/.git/
+.gitmodules
