@@ -330,10 +330,11 @@ export default function AddReel() {
                   <div className="relative group aspect-[3/4] md:h-64 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                     {extractedData.thumbnail ? (
                       <img 
-                        src={extractedData.thumbnail} 
+                        src={extractedData.thumbnail || '/default-thumbnail.png'}
                         alt="Preview" 
                         className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
-                        referrerPolicy="no-referrer" 
+                        referrerPolicy="no-referrer"
+                        onError={e => { e.currentTarget.src = '/default-thumbnail.png'; }}
                       />
                     ) : (
                       <div className="w-full h-full bg-surface-container-highest flex items-center justify-center">
