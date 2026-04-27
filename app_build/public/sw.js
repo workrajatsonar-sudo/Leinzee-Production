@@ -18,7 +18,14 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
   // Only cache GET requests
   if (event.request.method !== 'GET') return;
-  
+
+  const url = new URL(event.request.url);
+  // Bypass service worker for external requests (not same origin)
+  if (url.origin !== self.location.origin) {
+    // Let the browser handle it directly
+    return;
+  }
+
   // Don't cache API requests to the backend (keep them live)
   if (event.request.url.includes('/extract') || event.request.url.includes('/login')) {
     return;

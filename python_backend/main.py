@@ -74,12 +74,13 @@ def extract_reel(url: str):
         deadline = (datetime.now() + timedelta(days=7)).isoformat()
         
         return {
-            "title": title,
-            "description": caption,
-            "shortcode": shortcode,
-            "deadline": deadline,
-            "hashtags": tags[:5]
-        }
+    "title": title,
+    "description": caption,
+    "shortcode": shortcode,
+    "deadline": deadline,
+    "hashtags": tags[:5],
+    "thumbnail": post.url  # This gets the main image/video thumbnail from Instaloader
+}
     except Exception as e:
         print(f"Instaloader error: {str(e)}")
         # If login is required or blocked, we might get a 401 or similar
