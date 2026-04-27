@@ -5,7 +5,20 @@ import { format } from 'date-fns';
 import { mockExtract } from '../utils/mockExtract';
 import { API_BASE_URL } from '../utils/api';
 
-// --- Sub-components for better structure ---
+
+// Helper to proxy external thumbnails through backend
+function getProxiedThumbnail(url: string | undefined): string {
+  if (!url) return '/default-thumbnail.png';
+  // If already local (served from /thumbnails or /public), don't proxy
+  if (url.startsWith('/thumbnails') || url.startsWith('/default-thumbnail.png') || url.startsWith('data:')) {
+    return url;
+  }
+  // If already proxied
+  if (url.includes('/proxy-image?')) return url;
+  // Otherwise, proxy through backend
+  const backend = API_BASE_URL.replace(/\/$/, '');
+  return `${backend}/proxy-image?url=${encodeURIComponent(url)}`;
+}
 
 const Header = () => (
   <div className="mb-10 text-center md:text-left">
@@ -329,10 +342,10 @@ export default function AddReel() {
                 <div className="w-full md:w-48 shrink-0">
                   <div className="relative group aspect-[3/4] md:h-64 rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                     {extractedData.thumbnail ? (
-                      <img 
-                        src={extractedData.thumbnail || '/default-thumbnail.png'}
-                        alt="Preview" 
-                        className="w-full h-full object-cover transition duration-700 group-hover:scale-110" 
+                      <img
+                        src={getProxiedThumbnail(extractedData.thumbnail)}
+                        alt="Preview"
+                        className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
                         referrerPolicy="no-referrer"
                         onError={e => { e.currentTarget.src = '/default-thumbnail.png'; }}
                       />
@@ -341,6 +354,7 @@ export default function AddReel() {
                         <span className="material-symbols-outlined text-4xl text-outline opacity-20">movie</span>
                       </div>
                     )}
+                    // ...existing code...
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   
