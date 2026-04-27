@@ -113,7 +113,13 @@ export default function Tasks() {
                 <div className="flex flex-col gap-6">
                   <div className="w-full aspect-video rounded-2xl bg-white/5 overflow-hidden border border-white/5 shadow-2xl relative">
                     {primaryTask.thumbnail ? (
-                      <img src={primaryTask.thumbnail} alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                      <img 
+                        src={primaryTask.thumbnail || '/default-thumbnail.png'}
+                        alt="Thumbnail"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        referrerPolicy="no-referrer"
+                        onError={e => { e.currentTarget.src = '/default-thumbnail.png'; }}
+                      />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <span className="material-symbols-outlined text-primary text-4xl opacity-20" style={{fontVariationSettings: "'FILL' 1"}}>bolt</span>
@@ -170,7 +176,13 @@ export default function Tasks() {
                   <div className="flex items-center gap-5">
                     <div className="w-16 h-12 rounded-xl overflow-hidden flex items-center justify-center flex-shrink-0 border border-white/5 bg-white/5 shadow-lg">
                       {task.thumbnail ? (
-                        <img src={task.thumbnail} alt="Thumbnail" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" referrerPolicy="no-referrer" />
+                        <img 
+                          src={task.thumbnail || '/default-thumbnail.png'}
+                          alt="Thumbnail"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          referrerPolicy="no-referrer"
+                          onError={e => { e.currentTarget.src = '/default-thumbnail.png'; }}
+                        />
                       ) : (
                         <span className="material-symbols-outlined text-outline opacity-40">task</span>
                       )}
